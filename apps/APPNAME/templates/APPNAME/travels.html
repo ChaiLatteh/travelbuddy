@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Travel Dashboard</title>
+    <style type="text/css">
+      a{
+        color:blue;
+      }
+      #home{
+        margin-left:500px;
+        margin-right:20px;
+        opacity:0;
+      }
+      table{
+        border-collapse:collapse;
+        margin-bottom:100px;
+      }
+      table, th, td{
+        border: 1px solid black;
+      }
+      .no_plans{
+        border:none;
+      }
+    </style>
+  </head>
+  <body>
+    <a id="home" href="/travels">Home</a>
+    <a href="/logout">Logout</a>
+    {% if messages %}
+      {% for message in messages %}
+      <p>{{message}}</p>
+      {% endfor %}
+    {% endif %}
+
+    <h1>Hello, {{request.session.first_name}}!</h1>
+    <table>
+      Your Trip Schedules
+      <tr>
+        <th>Destination</th>
+        <th>Travel Start Date</th>
+        <th>Travel End Date</th>
+        <th>Plan</th>
+      </tr>
+      {% if my_travels_list %}
+        {% for travel in my_travels_list %}
+          <tr>
+            <td>{{travel.travel_destination}}</td>
+            <td>{{travel.travel_start_date}}</td>
+            <td>{{travel.travel_end_date}}</td>
+            <td>{{travel.travel_description}}</td>
+          </tr>
+        {% endfor %}
+        {% else %}
+          <tr>
+            <td class="no_plans">You currently have no travel plans :[</td>
+            <td class="no_plans"></td>
+            <td class="no_plans"></td>
+            <td class="no_plans"></td>
+          </tr>
+      {% endif %}
+    </table>
+    <table>
+      Other User's Travel Plans
+      <tr>
+        <th>Name</th>
+        <th>Destination</th>
+        <th>Travel Start Date</th>
+        <th>Travel End Date</th>
+        <th>Do You Want To Join?</th>
+      </tr>
+      {% if others_travels_list %}
+        {% for travel in others_travels_list %}
+          <tr>
+            <td>{{travel.user.first_name}} {{travel.user.last_name}}</td>
+            <td><a href="/travels/destination/{{travel.id}}">{{travel.travel_destination}}</a></td>
+            <td>{{travel.travel_start_date}}</td>
+            <td>{{travel.travel_end_date}}</td>
+            <td><a href="/travels/join/{{travel.id}}">Join</a></td>
+          </tr>
+        {% endfor %}
+      {% else %}
+        <tr>
+          <td class="no_plans">No travel plans to view here!</td>
+          <td class="no_plans"></td>
+          <td class="no_plans"></td>
+          <td class="no_plans"></td>
+          <td class="no_plans"></td>
+        </tr>
+      {% endif %}
+    </table>
+    <a href="/travels/add">Add Travel Plan</a>
+  </body>
+</html>

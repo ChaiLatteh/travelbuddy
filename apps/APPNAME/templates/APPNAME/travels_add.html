@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Add Plan</title>
+    <style type="text/css">
+      a{
+        color:blue;
+      }
+      #home{
+        margin-left:500px;
+        margin-right:20px;
+      }
+      input{
+        display:block;
+        margin-bottom:20px;
+      }
+    </style>
+  </head>
+  <body>
+    <a id="home" href="/travels">Home</a>
+    <a href="/logout">Logout</a>
+    {% if messages %}
+      {% for message in messages %}
+      <p>{{message}}</p>
+      {% endfor %}
+    {% endif %}
+    <form action="/travels/add_process" method="post">
+      {% csrf_token %}
+      <h1>Add a Trip</h1>
+      Destination: <input type="text" name="travel_destination">
+      Description: <input type="text" name="travel_description">
+      Travel Date From: <input type="date" name="travel_date_from">
+      Travel Date To: <input type="date" name="travel_date_to">
+      <input type="submit" name="add" value="Add">
+    </form>
+  </body>
+</html>
