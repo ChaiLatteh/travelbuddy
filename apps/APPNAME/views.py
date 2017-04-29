@@ -136,7 +136,7 @@ def travel_unjoin(request, travel_id):
         messages.add_message(request, messages.ERROR, "INVALID APPROACH")
         return redirect('/travels')
 
-    messages.add_message(request, messages.ERROR, "You have successfully chickened out!")
+    messages.add_message(request, messages.ERROR, "You have successfully bailed on the plan!")
     return redirect('/travels')
 
 

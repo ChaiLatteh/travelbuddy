@@ -37,6 +37,7 @@
     <p class="travel_context">Description: {{this_travel.travel_description}}</p>
     <p class="travel_context">Travel Date From: {{this_travel.travel_start_date}}</p>
     <p class="travel_context">Travel Date To: {{this_travel.travel_end_date}}</p>
+    <p class="travel_context">Posted on: {{this_travel.created_at}}</p>
     <h1>Other users joining the trip:</h1>
     {% if joined_users_list %}
       {% for user in joined_users_list %}
