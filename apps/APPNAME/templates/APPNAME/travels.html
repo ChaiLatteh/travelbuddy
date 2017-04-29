@@ -8,7 +8,7 @@
         color:blue;
       }
       #home{
-        margin-left:500px;
+        margin-left:450px;
         margin-right:20px;
         opacity:0;
       }
@@ -25,11 +25,12 @@
     </style>
   </head>
   <body>
+    <a id="updates" href="/updates">Updates</a>
     <a id="home" href="/travels">Home</a>
     <a href="/logout">Logout</a>
     {% if messages %}
       {% for message in messages %}
-      <p>{{message}}</p>
+        <p>{{message}}</p>
       {% endfor %}
     {% endif %}
 
@@ -41,19 +42,26 @@
         <th>Travel Start Date</th>
         <th>Travel End Date</th>
         <th>Plan</th>
+        <th>Bail?</th>
       </tr>
       {% if my_travels_list %}
         {% for travel in my_travels_list %}
           <tr>
-            <td>{{travel.travel_destination}}</td>
+            <td><a href="travels/destination/{{travel.id}}">{{travel.travel_destination}}</a></td>
             <td>{{travel.travel_start_date}}</td>
             <td>{{travel.travel_end_date}}</td>
             <td>{{travel.travel_description}}</td>
+            {% if travel.user.id != request.session.user_id %}
+              <td class="unjoin"><a href="travels/unjoin/{{travel.id}}">Unjoin</a></td>
+            {% else %}
+              <td class="invisible_unjoin"></td>
+            {% endif %}
           </tr>
         {% endfor %}
         {% else %}
           <tr>
             <td class="no_plans">You currently have no travel plans :[</td>
+            <td class="no_plans"></td>
             <td class="no_plans"></td>
             <td class="no_plans"></td>
             <td class="no_plans"></td>

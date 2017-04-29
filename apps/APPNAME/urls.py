@@ -10,6 +10,8 @@ urlpatterns = [
     url(r'^travels/add$', views.travels_add),
     url(r'^travels/add_process$', views.travels_add_process),
     url(r'^travels/join/(?P<travel_id>\d+)$', views.travel_join),
+    url(r'^travels/unjoin/(?P<travel_id>\d+)$', views.travel_unjoin),
     url(r'^travels/destination/(?P<travel_id>\d+)$', views.travel_view),
     url(r'^logout$', views.logout),
+    url(r'^updates$', views.updates),
 ]

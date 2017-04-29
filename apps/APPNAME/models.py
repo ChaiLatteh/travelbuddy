@@ -106,9 +106,11 @@ class Travel(models.Model):
     travel_end_date=models.CharField(max_length=255)
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
-    objects=TravelManager()
     user=models.ForeignKey(User)
+    objects=TravelManager()
 
 class Join(models.Model):
     user=models.ForeignKey(User)
     travel=models.ForeignKey(Travel)
+    created_at=models.DateTimeField(auto_now_add=True)
+    updated_at=models.DateTimeField(auto_now=True)

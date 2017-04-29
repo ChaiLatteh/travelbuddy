@@ -8,24 +8,58 @@
       color:blue;
     }
     #home{
-      margin-left:500px;
+      margin-left:450px;
       margin-right:20px;
+    }
+    .travel_context{
+      margin-left:40px;
+    }
+    #me{
+      color:blue;
+      font-weight:bold;
+    }
+    .users_joined_at{
+      margin-top:10px;
+      color:brown;
+      text-decoration:underline;
+    }
+    .joined_users{
+      font-weight:bold;
     }
     </style>
   </head>
   <body>
+    <a id="updates" href="/updates">Updates</a>
     <a id="home" href="/travels">Home</a>
     <a href="/logout">Logout</a>
     <h1>{{this_travel.travel_destination}}</h1>
-    <p>Planned By: {{this_travel.user.first_name}} {{this_travel.user.last_name}}</p>
-    <p>Description: {{this_travel.travel_description}}</p>
-    <p>Travel Date From: {{this_travel.travel_start_date}}</p>
-    <p>Travel Date To: {{this_travel.travel_end_date}}</p>
+    <p class="travel_context">Planned By: {{this_travel.user.first_name}} {{this_travel.user.last_name}}</p>
+    <p class="travel_context">Description: {{this_travel.travel_description}}</p>
+    <p class="travel_context">Travel Date From: {{this_travel.travel_start_date}}</p>
+    <p class="travel_context">Travel Date To: {{this_travel.travel_end_date}}</p>
     <h1>Other users joining the trip:</h1>
     {% if joined_users_list %}
       {% for user in joined_users_list %}
         <ul>
-          <li>{{user.first_name}} {{user.last_name}}</li>
+          {% if user.id == request.session.user_id %}
+            <li id="me">{{user.first_name}} {{user.last_name}} (ME)</li>
+            {% for join in join_list %}
+              {% if join.user.id == user.id and join.travel.id == this_travel.id %}
+              <ul>
+                <li class="users_joined_at">Joined this trip at: {{join.created_at}}</li>
+              </ul>
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            <li class="joined_users">{{user.first_name}} {{user.last_name}}</li>
+            {% for join in join_list %}
+              {% if join.user.id == user.id and join.travel.id == this_travel.id %}
+                <ul>
+                  <li class="users_joined_at">Joined this trip at: {{join.created_at}}</li>
+                </ul>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
         </ul>
       {% endfor %}
     {% else %}
